@@ -397,7 +397,6 @@ function chooseEater(el) {
 /* Core functions */
 // testing for setInterval
 setIntervalCollection.profiler = function() {
-    console.log("setInterval");
     var currTime = Date.now();
     var diff = currTime - setIntervalCollection.prevTime;
     var fps = diff === 0 ? Number.POSITIVE_INFINITY : Math.round(1000/diff);
@@ -412,7 +411,6 @@ setIntervalCollection.profiler = function() {
 
 // testing for requestAnimationFrame
 requestAnimationFrameCollection.profiler = function(timestamp) {
-    console.log("requestAnimationFrame");
     var currTime = Date.now();
     var diff = currTime - requestAnimationFrameCollection.prevTime;
     var fps = diff === 0 ? Number.POSITIVE_INFINITY : Math.round(1000/diff);
@@ -445,13 +443,11 @@ var outputTimer = null;
 // NOTE: throttle this so as not to load/overload the tick events when the stats grow.
 // Update the display only every 250ms or so.
 function output(currTime) {
-    console.log("throttle stat render?");
     currTime = Number.isFinite(currTime) ? currTime : Date.now();
     var diff = currTime - outputPrevTime;
     outputPrevTime = currTime;
 
     if (!outputTimer || !Number.isFinite(diff) || diff >= 1000) {
-        console.log("renderOutput", {outputTimer, diff, currTime});
         renderOutput(setIntervalCollection,format,count);
         renderOutput(requestAnimationFrameCollection,format,count);
 
